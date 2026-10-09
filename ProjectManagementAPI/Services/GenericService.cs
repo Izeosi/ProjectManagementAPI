@@ -57,6 +57,22 @@ namespace ProjectManagementAPI.Services
         public async Task<TResponseDTO> CreateAsync(TCreateDTO createDTO)
         {
             var entity = _mapper.Map<TEntity>(createDTO);
+            var entityType = _context.Model.FindEntityType(typeof(TEntity));
+
+            if (entityType == null)
+            {
+                throw new InvalidOperationException(
+                    $"{typeof(TEntity).Name} is not part of the EF Core model.");
+            }
+
+            var createdAt = DateTime.UtcNow;
+
+            var dateCreatedProperty = entityType.FindProperty("DateCreated");
+            dateCreatedProperty?.PropertyInfo?.SetValue(entity, createdAt);
+
+            var dateModifiedProperty = entityType.FindProperty("DateModified");
+            dateModifiedProperty?.PropertyInfo?.SetValue(entity, createdAt);
+
             var createdEntity = await _repository.CreateAsync(entity);
             return _mapper.Map<TResponseDTO>(createdEntity);
         }
@@ -71,6 +87,10 @@ namespace ProjectManagementAPI.Services
             }
 
             _mapper.Map(updateDTO, existingEntity);
+            var dateModifiedProperty = _context.Model.FindEntityType(typeof(TEntity))?.FindProperty("DateModified");
+
+            dateModifiedProperty?.PropertyInfo?.SetValue(existingEntity, DateTime.UtcNow);
+
             var updatedEntity = await _repository.UpdateAsync(existingEntity);
             if (updatedEntity == null)
             {

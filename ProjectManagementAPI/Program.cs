@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using ProjectManagementAPI.Configurations;
 using ProjectManagementAPI.Data;
 using ProjectManagementAPI.Data.Repository;
 using ProjectManagementAPI.Services;
@@ -12,6 +13,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("ProjectManagementDBConnection"));
 });
 
+builder.Services.AddAutoMapper(cfg => { }, typeof(AutoMapperConfig));
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
