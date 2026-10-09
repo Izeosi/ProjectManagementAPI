@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using ProjectManagementAPI.Data;
+using ProjectManagementAPI.Data.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("ProjectManagementDBConnection"));
 });
+
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
