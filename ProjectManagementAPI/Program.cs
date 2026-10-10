@@ -16,6 +16,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddAutoMapper(cfg => { }, typeof(AutoMapperConfig));
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped<IProjectService, ProjectService>();
 
 builder.Services.AddScoped(typeof(IGenericService<,,,>), typeof(GenericService<,,,>));
 
