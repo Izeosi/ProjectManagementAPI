@@ -10,6 +10,6 @@
         public string Status { get; set; } = string.Empty;
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
-        public string CreatedBy { get; set; } = string.Empty;
+        public string? CreatedBy { get; set; } = string.Empty;
     }
 }

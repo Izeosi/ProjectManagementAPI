@@ -13,6 +13,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("ProjectManagementDBConnection"));
 });
 
+builder.Services.AddControllers();
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 builder.Services.AddAutoMapper(cfg => { }, typeof(AutoMapperConfig));
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
@@ -20,7 +25,6 @@ builder.Services.AddScoped<IProjectService, ProjectService>();
 
 builder.Services.AddScoped(typeof(IGenericService<,,,>), typeof(GenericService<,,,>));
 
-builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
@@ -29,8 +33,10 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
+
 
 app.UseHttpsRedirection();
 

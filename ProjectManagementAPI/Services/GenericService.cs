@@ -44,7 +44,7 @@ namespace ProjectManagementAPI.Services
 
             var primaryKeyProperty = primarykey.Properties[0];
 
-            var entity = _context.Set<TEntity>().FindAsync(id);
+            var entity = await _context.Set<TEntity>().FindAsync(id);
 
             if (entity == null)
             {

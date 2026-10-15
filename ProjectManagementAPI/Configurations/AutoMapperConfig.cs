@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using ProjectManagementAPI.Data;
 using ProjectManagementAPI.Models.DTOs;
-using System.Net.NetworkInformation;
 
 namespace ProjectManagementAPI.Configurations
 {
