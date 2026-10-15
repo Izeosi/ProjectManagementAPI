@@ -22,6 +22,7 @@ builder.Services.AddAutoMapper(cfg => { }, typeof(AutoMapperConfig));
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IProjectService, ProjectService>();
+builder.Services.AddScoped<ITaskService, TaskService>();
 
 builder.Services.AddScoped(typeof(IGenericService<,,,>), typeof(GenericService<,,,>));
 
