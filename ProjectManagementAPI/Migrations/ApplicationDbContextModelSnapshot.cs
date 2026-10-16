@@ -317,7 +317,6 @@ namespace ProjectManagementAPI.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TaskId"));
 
                     b.Property<string>("CreatedBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("DateCreated")
@@ -454,7 +453,6 @@ namespace ProjectManagementAPI.Migrations
                         .WithMany()
                         .HasForeignKey("CreatedBy")
                         .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired()
                         .HasConstraintName("FK_Tasks_Users_CreatedBy");
 
                     b.HasOne("ProjectManagementAPI.Data.Project", "Project")
